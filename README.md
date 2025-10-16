@@ -1,4 +1,4 @@
-#Odyssey Architect & Associates - Setup Guide
+# Shri Krishna Leela Enterprises - Setup Guide
 
 ## Firebase Setup Instructions
 

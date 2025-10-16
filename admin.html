@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Submissions - Admin Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .search-box {
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 16px;
+            width: 300px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-box:focus {
+            border-color: #667eea;
+        }
+
+        .refresh-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .refresh-btn:hover {
+            background: #5a6fd8;
+        }
+
+        .submissions-grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        }
+
+        .submission-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submission-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .submission-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .submission-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .submission-date {
+            font-size: 0.9rem;
+            color: #666;
+            background: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+
+        .submission-field {
+            margin-bottom: 10px;
+        }
+
+        .field-label {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .field-value {
+            margin-top: 3px;
+            font-size: 1rem;
+            color: #333;
+            word-wrap: break-word;
+        }
+
+        .field-email {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .field-email:hover {
+            text-decoration: underline;
+        }
+
+        .field-phone {
+            color: #28a745;
+            font-weight: 500;
+        }
+
+        .idea-text {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #f5c6cb;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .submissions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📧 Contact Submissions</h1>
+            <p>Admin Dashboard - Manage client inquiries</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <h3 id="totalCount">-</h3>
+                <p>Total Submissions</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="todayCount">-</h3>
+                <p>Today's Submissions</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="weekCount">-</h3>
+                <p>This Week</p>
+            </div>
+        </div>
+
+        <div class="controls">
+            <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search by name, email, or idea...">
+            <button class="refresh-btn" onclick="loadSubmissions()">🔄 Refresh</button>
+        </div>
+
+        <div id="loadingMsg" class="loading">
+            Loading submissions...
+        </div>
+
+        <div id="errorMsg" class="error" style="display: none;"></div>
+
+        <div id="submissionsContainer" class="submissions-grid" style="display: none;"></div>
+
+        <div id="noDataMsg" class="no-data" style="display: none;">
+            📭 No contact submissions found
+        </div>
+    </div>
+
+    <script>
+        let allSubmissions = [];
+        let filteredSubmissions = [];
+
+        // Load submissions on page load
+        document.addEventListener('DOMContentLoaded', loadSubmissions);
+
+        // Search functionality
+        document.getElementById('searchBox').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            filteredSubmissions = allSubmissions.filter(submission => 
+                submission.name.toLowerCase().includes(searchTerm) ||
+                submission.email.toLowerCase().includes(searchTerm) ||
+                submission.idea.toLowerCase().includes(searchTerm) ||
+                submission.phone.includes(searchTerm)
+            );
+            renderSubmissions(filteredSubmissions);
+        });
+
+        async function loadSubmissions() {
+            const loadingMsg = document.getElementById('loadingMsg');
+            const errorMsg = document.getElementById('errorMsg');
+            const container = document.getElementById('submissionsContainer');
+            const noDataMsg = document.getElementById('noDataMsg');
+
+            // Show loading
+            loadingMsg.style.display = 'block';
+            errorMsg.style.display = 'none';
+            container.style.display = 'none';
+            noDataMsg.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/customize');
+                const result = await response.json();
+
+                if (response.ok) {
+                    allSubmissions = result.data || [];
+                    filteredSubmissions = [...allSubmissions];
+                    
+                    loadingMsg.style.display = 'none';
+                    
+                    if (allSubmissions.length === 0) {
+                        noDataMsg.style.display = 'block';
+                    } else {
+                        container.style.display = 'grid';
+                        renderSubmissions(filteredSubmissions);
+                        updateStats();
+                    }
+                } else {
+                    throw new Error(result.error || 'Failed to load submissions');
+                }
+            } catch (error) {
+                loadingMsg.style.display = 'none';
+                errorMsg.textContent = 'Error loading submissions: ' + error.message;
+                errorMsg.style.display = 'block';
+                console.error('Error loading submissions:', error);
+            }
+        }
+
+        function renderSubmissions(submissions) {
+            const container = document.getElementById('submissionsContainer');
+            
+            if (submissions.length === 0) {
+                container.innerHTML = '<div class="no-data">No submissions match your search</div>';
+                return;
+            }
+
+            container.innerHTML = submissions.map(submission => `
+                <div class="submission-card">
+                    <div class="submission-header">
+                        <div class="submission-name">👤 ${escapeHtml(submission.name)}</div>
+                        <div class="submission-date">${formatDate(submission.createdAt)}</div>
+                    </div>
+                    
+                    <div class="submission-field">
+                        <div class="field-label">📧 Email</div>
+                        <div class="field-value">
+                            <a href="mailto:${escapeHtml(submission.email)}" class="field-email">
+                                ${escapeHtml(submission.email)}
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="submission-field">
+                        <div class="field-label">📱 Phone</div>
+                        <div class="field-value">
+                            <a href="tel:${escapeHtml(submission.phone)}" class="field-phone">
+                                ${escapeHtml(submission.phone)}
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="submission-field">
+                        <div class="field-label">💡 Project Idea</div>
+                        <div class="field-value">
+                            <div class="idea-text">${escapeHtml(submission.idea)}</div>
+                        </div>
+                    </div>
+                    
+                    <button class="delete-btn" onclick="deleteSubmission('${submission.id}')">
+                        🗑️ Delete
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function updateStats() {
+            const total = allSubmissions.length;
+            const today = new Date();
+            const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            const weekStart = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+            const todayCount = allSubmissions.filter(sub => {
+                const subDate = new Date(sub.createdAt.seconds ? sub.createdAt.seconds * 1000 : sub.createdAt);
+                return subDate >= todayStart;
+            }).length;
+
+            const weekCount = allSubmissions.filter(sub => {
+                const subDate = new Date(sub.createdAt.seconds ? sub.createdAt.seconds * 1000 : sub.createdAt);
+                return subDate >= weekStart;
+            }).length;
+
+            document.getElementById('totalCount').textContent = total;
+            document.getElementById('todayCount').textContent = todayCount;
+            document.getElementById('weekCount').textContent = weekCount;
+        }
+
+        async function deleteSubmission(id) {
+            if (!confirm('Are you sure you want to delete this submission?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/customize/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    // Remove from local arrays
+                    allSubmissions = allSubmissions.filter(sub => sub.id !== id);
+                    filteredSubmissions = filteredSubmissions.filter(sub => sub.id !== id);
+                    
+                    // Re-render
+                    renderSubmissions(filteredSubmissions);
+                    updateStats();
+                    
+                    // Show success message
+                    alert('Submission deleted successfully!');
+                } else {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to delete submission');
+                }
+            } catch (error) {
+                alert('Error deleting submission: ' + error.message);
+                console.error('Delete error:', error);
+            }
+        }
+
+        function formatDate(dateValue) {
+            let date;
+            
+            if (dateValue && dateValue.seconds) {
+                // Firestore timestamp
+                date = new Date(dateValue.seconds * 1000);
+            } else if (dateValue) {
+                date = new Date(dateValue);
+            } else {
+                return 'Unknown';
+            }
+
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

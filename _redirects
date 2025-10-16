@@ -1,0 +1,15 @@
+# Netlify redirects for SPA-like routing
+/services   /service.html   200
+/services/  /service.html   200
+/about      /about.html     200
+/about/     /about.html     200
+/business   /business.html  200
+/business/  /business.html  200
+/home       /home.html      200
+/home/      /home.html      200
+
+# API routes (if you need them later)
+/api/*      /404.html       404
+
+# Fallback for any other routes
+/*          /index.html     200

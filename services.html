@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Georgia',serif;line-height:1.7;color:#3a3530;background:#f8f6f3;overflow-x:hidden}
+
+/* Header Styles */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(139, 125, 107, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 15px 0;
+  z-index: 1000;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+}
+
+header .logo {
+  float: left;
+  margin-left: 30px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f0e68c;
+  font-family: 'Georgia', serif;
+}
+
+header nav {
+  float: right;
+  margin-right: 30px;
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+header nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  padding: 8px 15px;
+  border-radius: 20px;
+}
+
+header nav ul li a:hover,
+header nav ul li a.active {
+  background: rgba(240, 230, 140, 0.2);
+  color: #f0e68c;
+  transform: translateY(-2px);
+}
+
+header::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+section{padding:80px 20px;max-width:1200px;margin:auto}
+section:not(.hero){margin-top:40px}
+h1,h2{font-family:'Georgia',serif;color:#8b4513;text-align:center}
+h1{font-size:clamp(2.5rem,6vw,4rem);margin-bottom:1.5rem;color:#f0e68c}
+h2{font-size:clamp(2rem,4vw,3rem);margin-bottom:20px;position:relative;color:#8b4513}
+h2::after{content:'';position:absolute;bottom:-15px;left:50%;transform:translateX(-50%);width:80px;height:4px;
+  background:linear-gradient(45deg,#8b4513,#b8860b);border-radius:2px;animation:underlineGrow 1s forwards}
+p{text-align:center;color:#8b7d6b;margin-bottom:60px;max-width:700px;margin-inline:auto;font-size:1.1rem}
+section > p{margin-bottom:50px}
+.hero{height:70vh;background:linear-gradient(135deg,#f8f6f3 0%,#ede8e0 50%,#e2ddd5 100%);display:flex;
+  align-items:center;justify-content:center;text-align:center;position:relative;border-bottom:3px solid rgba(139,69,19,0.2);
+  margin-top:80px}
+.hero-content{color:#3a3530;max-width:800px;padding:40px 20px;animation:fadeIn 1.5s ease-out;background:rgba(248,246,243,0.85);border-radius:15px;backdrop-filter:blur(10px);box-shadow:0 8px 25px rgba(0,0,0,0.1)}
+.hero-subtitle{
+  font-size:clamp(1.1rem,2.5vw,1.4rem);
+  opacity:.8;
+  line-height:1.6;
+  color:#8b7d6b;
+  font-style:italic;
+}
+.process-flow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 40px;
+}
+
+.step {
+  background: #fff;
+  padding: 15px 25px;
+  border-radius: 50px;
+  font-weight: 600;
+  color: #6d4c41;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.step:hover {
+  background: #f0e68c;
+  color: #000;
+  transform: scale(1.05);
+}
+
+.arrow {
+  font-size: 1.8rem;
+  color: #b8860b;
+}
+
+.brand-badge{position:absolute;bottom:20px;right:30px;font:600 1.2rem 'Georgia';letter-spacing:2px;
+  color:#8b4513;background:rgba(248,246,243,0.9);padding:8px 16px;border-radius:30px;backdrop-filter:blur(6px);
+  border:2px solid rgba(139,69,19,0.3)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:40px;margin-top:50px}
+.service-card{background:#fff;padding:40px 30px;border-radius:25px;box-shadow:0 20px 60px rgba(0,0,0,.05);
+  text-align:center;position:relative;transition:.3s;border-left:5px solid #b8860b}
+.service-card:hover{transform:translateY(-10px);box-shadow:0 30px 80px rgba(139,69,19,.15);border-left-color:#8b4513}
+.service-card::after{content:"Design is where science and art break even.";position:absolute;bottom:10px;left:10px;
+  font-size:.9rem;color:rgba(0,0,0,.5);font-style:italic;opacity:0;transition:.3s}
+.service-card:hover::after{opacity:1}
+.service-icon{width:80px;height:80px;border-radius:50%;margin:0 auto 25px;display:flex;align-items:center;justify-content:center;
+  font-size:35px;color:#fff;background:linear-gradient(45deg,#8b4513,#b8860b);box-shadow:0 10px 30px rgba(139,69,19,.3);
+  transition:.3s}
+.service-icon:hover{transform:scale(1.1) rotate(-2deg)}
+.service-title{font-size:1.5rem;color:#8b4513;margin-bottom:15px;font-weight:600;font-family:'Georgia',serif}
+.service-description{color:#8b7d6b;margin-bottom:20px;line-height:1.6}
+.service-features{list-style:none;text-align:left}
+.service-features li{padding-left:25px;padding-bottom:8px;color:#8b7d6b;position:relative}
+.service-features li::before{content:'✓';position:absolute;left:0;color:#b8860b;font-weight:700;font-size:1.1rem}
+@keyframes fadeIn{from{opacity:0;transform:translateY(50px)}to{opacity:1;transform:translateY(0)}}
+@keyframes underlineGrow{from{width:0}to{width:80px}}
+@media(max-width:768px){
+  .hero{height:60vh;padding:20px}
+  .hero-content{padding:30px 20px}
+  section{padding:50px 20px}
+  .services-grid{grid-template-columns:1fr;gap:25px}
+  .service-card{padding:25px 20px}
+  .brand-badge{font-size:1rem;padding:6px 12px;bottom:15px;right:20px}
+  nav a{margin:0 10px !important;padding:6px 12px !important}
+}
+
+@media(max-width:480px){
+  .hero-content{padding:20px 15px}
+  h1{font-size:2rem !important}
+  h2{font-size:1.8rem !important}
+  .service-card{padding:20px 15px}
+}
+</style>
+</head>
+<body>
+<!-- Header -->
+<header>
+  <div class="logo">Shri Krishna Leela Enterprises</div>
+  <nav>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="service.html" class="active">Services</a></li>
+      <li><a href="business.html">Business</a></li>
+      <li><a href="#" onclick="showContactModal()">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Our Services</h1>
+    <p class="hero-subtitle">We provide end-to-end design and construction solutions, tailored to create spaces that inspire, function, and last.</p>
+    <a href="#services" class="cta-button" style="display:inline-block;background:linear-gradient(45deg,#8b4513,#b8860b);color:#fff;padding:15px 40px;border-radius:50px;font-weight:600;text-decoration:none;margin-top:20px;transition:all 0.3s ease;box-shadow:0 8px 25px rgba(139,69,19,0.3);">Explore Our Services</a>
+  </div>
+  <div class="brand-badge">SKLE</div>
+</section>
+
+<!-- Services -->
+<section id="services">
+  <h2>Comprehensive Design Solutions</h2>
+  <p>From concept to completion, we offer a full spectrum of architectural and interior design services</p>
+  <div class="services-grid">
+    
+    <div class="service-card">
+      <div class="service-icon">🏗️</div>
+      <h3 class="service-title">Architectural Design</h3>
+      <p class="service-description">Complete solutions from concepts to detailed construction drawings.</p>
+      <ul class="service-features">
+        <li>Concept planning & site analysis</li>
+        <li>2D & 3D drawings</li>
+        <li>Building permits & approvals</li>
+        <li>Structural coordination</li>
+        <li>Sustainable design</li>
+      </ul>
+    </div>
+    
+    <div class="service-card">
+      <div class="service-icon">🎨</div>
+      <h3 class="service-title">Interior Design</h3>
+      <p class="service-description">Transform spaces into functional, stylish environments.</p>
+      <ul class="service-features">
+        <li>Residential interiors</li>
+        <li>Commercial & office spaces</li>
+        <li>Luxury solutions</li>
+        <li>Custom furniture</li>
+        <li>Lighting & color consultation</li>
+      </ul>
+    </div>
+    
+    <div class="service-card">
+      <div class="service-icon">🔧</div>
+      <h3 class="service-title">Turnkey Projects</h3>
+      <p class="service-description">From concept to completion, handled by our expert team.</p>
+      <ul class="service-features">
+        <li>Project management</li>
+        <li>Construction supervision</li>
+        <li>Quality control</li>
+        <li>Timeline & budget management</li>
+        <li>Final handover & warranty</li>
+      </ul>
+    </div>
+    
+    <div class="service-card">
+      <div class="service-icon">🔄</div>
+      <h3 class="service-title">Renovation & Remodeling</h3>
+      <p class="service-description">Modernize and revitalize existing spaces.</p>
+      <ul class="service-features">
+        <li>Home renovations</li>
+        <li>Commercial remodeling</li>
+        <li>Kitchen & bathroom makeovers</li>
+        <li>Heritage restoration</li>
+        <li>Space optimization</li>
+      </ul>
+    </div>
+    
+    <div class="service-card">
+      <div class="service-icon">🌿</div>
+      <h3 class="service-title">Landscape & Outdoor</h3>
+      <p class="service-description">Create stunning outdoor environments.</p>
+      <ul class="service-features">
+        <li>Garden design</li>
+        <li>Terrace & rooftop gardens</li>
+        <li>Outdoor living spaces</li>
+        <li>Water features</li>
+        <li>Sustainable landscaping</li>
+      </ul>
+    </div>
+    
+    <div class="service-card">
+      <div class="service-icon">📋</div>
+      <h3 class="service-title">Consultation & Planning</h3>
+      <p class="service-description">Expert advice and planning for project success.</p>
+      <ul class="service-features">
+        <li>Design consultation</li>
+        <li>Feasibility studies</li>
+        <li>Budget planning</li>
+        <li>Material selection</li>
+        <li>Compliance advice</li>
+      </ul>
+    </div>
+    
+  </div>
+</section>
+
+<!-- Process -->
+<section>
+  <h2>How We Work</h2>
+  <p>Our streamlined process ensures quality results and client satisfaction at every step</p>
+
+  <div class="process-flow">
+    <div class="step">1. Consultation</div>
+    <div class="arrow">➔</div>
+    <div class="step">2. Design</div>
+    <div class="arrow">➔</div>
+    <div class="step">3. Execution</div>
+    <div class="arrow">➔</div>
+    <div class="step">4. Handover</div>
+  </div>
+</section>
+
+
+<!-- Why Choose Us -->
+<section>
+  <h2>Why Choose Us?</h2>
+  <p>Experience the difference of working with dedicated professionals who prioritize your vision</p>
+  <div class="services-grid">
+    
+    <div class="service-card">
+      <div class="service-icon">👥</div>
+      <h3 class="service-title">Experienced Team</h3>
+      <p class="service-description">4+ years of proven expertise with skilled architects, designers, and engineers.</p>
+    </div>
+    
+    <div class="service-card">
+      <div class="service-icon">💰</div>
+      <h3 class="service-title">Cost-Effective</h3>
+      <p class="service-description">Smart budget management without compromising quality.</p>
+    </div>
+    
+    <div class="service-card">
+      <div class="service-icon">🏆</div>
+      <h3 class="service-title">Quality Assurance</h3>
+      <p class="service-description">Rigorous quality control ensures lasting satisfaction.</p>
+    </div>
+    
+    <div class="service-card">
+      <div class="service-icon">⏱️</div>
+      <h3 class="service-title">Timely Delivery</h3>
+      <p class="service-description">Projects completed on schedule, every time.</p>
+    </div>
+    
+    <div class="service-card">
+      <div class="service-icon">🎯</div>
+      <h3 class="service-title">Client-Focused</h3>
+      <p class="service-description">Your vision is our priority. We listen, understand, and deliver exactly what you envision.</p>
+    </div>
+    
+    <div class="service-card">
+      <div class="service-icon">🔒</div>
+      <h3 class="service-title">Guaranteed Satisfaction</h3>
+      <p class="service-description">We stand behind our work with comprehensive warranties and ongoing support.</p>
+    </div>
+    
+  </div>
+</section>
+
+    <!-- Universal Contact Modal CSS and JS -->
+    <link rel="stylesheet" href="contact-modal.css">
+    <script src="contact-modal.js"></script>
+
+</body>
+</html>

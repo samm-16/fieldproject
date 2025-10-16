@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Odysey Architects & Associates - Construction & Interior Experts</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Georgia',serif;line-height:1.7;color:#3a3530;background:#f8f6f3}
+header{background:rgba(139,125,107,.95);backdrop-filter:blur(10px);color:#fff;padding:15px 0;position:fixed;width:100%;top:0;z-index:1000;box-shadow:0 2px 20px rgba(0,0,0,.1)}
+header .logo{float:left;margin-left:30px;font-size:1.5rem;font-weight:700;color:#f0e68c}
+header nav{float:right;margin-right:30px}
+header nav ul{list-style:none;display:flex;gap:30px}
+header nav ul li a{color:#fff;text-decoration:none;font-weight:500;font-size:1rem;padding:8px 15px;border-radius:20px;transition:.3s}
+header nav ul li a:hover{background:rgba(240,230,140,.2);color:#f0e68c;transform:translateY(-2px)}
+header::after{content:'';display:table;clear:both}
+main{margin-top:80px}
+.hero{background:linear-gradient(135deg,#f8f6f3 0%,#ede8e0 50%,#e2ddd5 100%);text-align:center;padding:120px 0 80px;border-bottom:3px solid rgba(139,69,19,.2)}
+.hero-text{background:rgba(248,246,243,.85);padding:40px;border-radius:15px;backdrop-filter:blur(10px);box-shadow:0 8px 25px rgba(0,0,0,.1);max-width:800px;margin:0 auto}
+.hero h1{font-size:clamp(2.5rem,5vw,3.5rem);margin-bottom:1rem;color:#b8860b;font-weight:400}
+.hero p{font-size:clamp(1.1rem,2.5vw,1.4rem);margin-bottom:2rem;color:#8b7d6b;opacity:.9}
+.btn{display:inline-block;background:linear-gradient(45deg,#8b4513,#b8860b);color:#fff;padding:15px 40px;text-decoration:none;border-radius:50px;font-weight:600;font-size:1.1rem;text-transform:uppercase;letter-spacing:.5px;transition:.3s;box-shadow:0 8px 25px rgba(139,69,19,.3)}
+.btn:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(139,69,19,.4)}
+section{padding:80px 0}
+.about,.profile,.services,.projects{max-width:1200px;margin:0 auto;padding:0 2rem}
+h2{font-family:'Georgia',serif;font-size:clamp(2rem,4vw,3rem);text-align:center;margin-bottom:20px;color:#8b4513;position:relative}
+h2::after{content:'';position:absolute;bottom:-15px;left:50%;transform:translateX(-50%);width:80px;height:4px;background:linear-gradient(45deg,#8b4513,#b8860b);border-radius:2px}
+.about-content,.profile-content{display:flex;align-items:center;gap:3rem;margin-bottom:2rem}
+.about-content img,.profile-img{max-width:300px;border-radius:10px}
+.service-boxes,.project-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:2rem}
+.service,.project{background:#fff;padding:30px;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.08);text-align:center;transition:.3s;border-left:5px solid #b8860b}
+.service:hover,.project:hover{transform:translateY(-10px);box-shadow:0 30px 80px rgba(139,69,19,.15);border-left-color:#8b4513}
+.service h3,.project h4{color:#8b4513;margin-bottom:1rem;font-family:'Georgia',serif;font-size:1.3rem;font-weight:600}
+.service p,.project p{color:#8b7d6b;line-height:1.6}
+.service img,.project img{width:100%;height:200px;object-fit:cover;border-radius:10px;margin-bottom:1rem}
+footer{background:linear-gradient(135deg,#8b4513,#6d4c41);color:#f0e68c;text-align:center;padding:2rem 0;margin-top:3rem;font-family:'Georgia',serif}
+@media(max-width:768px){.about-content,.profile-content{flex-direction:column;text-align:center}header .logo,header nav{float:none;text-align:center;margin:0}header nav ul li{display:block;margin:.5rem 0}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Odysey Architects & Associates</div>
+  <nav>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="service.html">Services</a></li>
+      <li><a href="business.html" class="active">Business</a></li>
+      <li><a href="#contact" onclick="showContactModal()">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section id="home" class="hero">
+  <div class="hero-text">
+    <h1>Architecture & Interior Designer</h1>
+    <p>Leading Construction & Interior Designing Solutions</p>
+    <a href="#" onclick="showContactModal()" class="btn">Get Free Consultation</a>
+  </div>
+</section>
+
+<section id="profile" class="profile" style="padding:60px 20px">
+  <h2>Our Business Associate</h2>
+  <div style="background:#fff;padding:40px;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.05);border:1px solid #e0e0e0;max-width:800px;margin:0 auto">
+    <div class="profile-content">
+      <div class="profile-text" style="text-align:center">
+        <h3 style="font-size:1.5rem;color:#4a4032">Mr. Sachin Hansa Yadav</h3>
+        <p style="font-style:italic;color:#7a6a58">Business Associate</p>
+        <p style="font-size:1rem;color:#5a4b3b;line-height:1.7;margin-top:20px">
+          An experience of over 3 years in architectural practice and a Master's in Urban Design from Mumbai University, Sachin Yadav has been associated with OAA since its inception. He brings a unique blend of planning and design skills, particularly in urban contexts, along with deep technical expertise.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="projects">
+  <h2>Our Projects</h2>
+  <div class="project-gallery">
+    <div class="project"><img src="Shyam Paradise .png" alt="Project 1"><h4>Shyam Paradise- Palghar(w) - 12,00,000 Sq.ft.</h4></div>
+    <div class="project"><img src="Tulip Residency.png" alt="Project 2"><h4>Tulip Residency- Palghar(w) - 7,500 Sq.ft.</h4></div>
+    <div class="project"><img src="Maharaja.png" alt="Project 3"><h4>Maharaja Developer- Boisar(w) - 46,000 Sq.ft.</h4></div>
+    <div class="project"><img src="Divyaraj Residency  .png" alt="Project 4"><h4>Divyaraj Residency- Boisar(w) - 4,68,000 Sq.ft.</h4></div>
+    <div class="project"><img src="colours.png" alt="Project 5"><h4>Colors Discovery - Boisar(e)/ Mumbai Suburbs - 12,00,000 Sq.ft.</h4></div>
+    <div class="project"><img src="Ascon Residency  .png" alt="Project 6"><h4>Ascon Realtors - Boisar(w) - 5,10,000 Sq.ft.</h4></div>
+    <div class="project"><img src="Gayatri Garden .png" alt="Project 7"><h4>Gayatri Garden-Mahim, Palghar(w) – 2,08,885 Sq.ft.</h4></div>
+    <div class="project"><img src="Khetan Homes .png" alt="Project 8"><h4>Khetan Homes – Betegaon/Boisar(e) – 20 Bungalows</h4></div>
+    <div class="project"><img src="Meher Park .png" alt="Project 9"><h4>Meher Park- Palghar (e) - 26,50,675 Sq.ft</h4></div>
+    <div class="project"><img src="Ascon Landmark .png" alt="Project 10"><h4>Ascon Landmark- Vasai (e) – 18,000 Sq.ft.</h4></div>
+    <div class="project"><img src="Vastushilp Exotika .png" alt="Project 11"><h4>Vastushilp Exotika-Shahupuri/Satara-18,500 Sq.ft.</h4></div>
+    <div class="project"><img src="Divyaraj Value Homes .png" alt="Project 12"><h4>Divyaraj Value Homes- Palm Tembhi, Boisar(w) -3,86,744 Sq.ft</h4></div>
+    <div class="project"><img src="Jagdale Residency.png" alt="Project 13"><h4>Jagdale Residency – Kasalkhand/Panvel – 1,36,000 Sq.ft.</h4></div>
+    <div class="project"><img src="Vaikunth Complex .png" alt="Project 14"><h4>Vaikunth Complex-Ulwe/Navi Mumbai – 35,000 Sq.ft.</h4></div>
+    <div class="project"><img src="Kartik Regency .png" alt="Project 15"><h4>Kartik Regency- Kile Gaothan, CBD Belapur – 71,630 Sq.ft</h4></div>
+    <div class="project"><img src="Vedas Square.png" alt="Project 16"><h4>The Vedas Square – Amli, Silvassa – 1,03,250 sq. ft.</h4></div>
+    <div class="project"><img src="Nalavade Arcade.png" alt="Project 17"><h4>Nalavade Arcade- Palghar(w) - 35,000 Sq.ft.</h4></div>
+  </div>
+</section>
+
+<footer>
+<p>&copy; Website: www.info-oaa.in | E-mail: oaa.advisory@gmail.com | +91 98677 16961<br>
+Branch Off: D-101, MV Supermarket, Kacheri Rd, 5 Batti, Palghar (W)<br>
+Main Branch: Off-202, Mayuresh Cosmos, Plot-37, Sector-11, CBD Belapur, Navi Mumbai-400206</p>
+</footer>
+
+<link rel="stylesheet" href="contact-modal.css">
+<script src="contact-modal.js"></script>
+</body>
+</html>

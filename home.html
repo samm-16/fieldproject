@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Architectural Dreams</title>
+<style>
+  * {margin:0; padding:0; box-sizing:border-box;}
+  html, body {height:100%; overflow-x:hidden; font-family:'Georgia', serif; background:#f8f6f3;}
+  
+  /* Header Styles */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(157, 141, 127, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 15px 0;
+    z-index: 1000;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+  }
+  
+  header .logo {
+    float: left;
+    margin-left: 30px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #f0e68c;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  header nav {
+    float: right;
+    margin-right: 30px;
+  }
+  
+  header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+  }
+  
+  header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    padding: 8px 15px;
+    border-radius: 20px;
+  }
+  
+  header nav ul li a:hover {
+    background: rgba(240, 230, 140, 0.2);
+    color: #f0e68c;
+    transform: translateY(-2px);
+  }
+  
+  header::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+
+  .hero-container {position:relative; width:100vw; height:100vh; background:linear-gradient(135deg,#f8f6f3 0%,#ede8e0 50%,#e2ddd5 100%);}
+  .sketch-background {position:absolute; top:0; left:0; width:100%; height:100%; background:url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxwYXR0ZXJuIGlkPSJza2V0Y2giIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj4KICAgICAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmOGY2ZjMiLz4KICAgIDwvcGF0dGVybj4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9InVybCgjc2tldGNoKSIvPgo8L3N2Zz4='); opacity:0.1;}
+
+  .drawing-container, .building-3d, .content-overlay {position:absolute; top:0; left:0; width:100%; height:100%;}
+  .drawing-container {display:flex; justify-content:center; align-items:center;}
+  .architectural-sketch {width:90vw; height:90vh; max-width:1200px; max-height:900px;}
+  .sketch-path {fill:none; stroke:#8b7d6b; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:1000; stroke-dashoffset:1000; opacity:0;}
+  .foundation-lines {animation:drawLine 1.5s ease-in-out 0.2s forwards;}
+  .stair-lines {animation:drawLine 2s ease-in-out 0.8s forwards;}
+  .building-outline {animation:drawLine 2.2s ease-in-out 1.5s forwards;}
+  .column-lines {animation:drawLine 1.8s ease-in-out 2.2s forwards;}
+  .dome-lines {animation:drawLine 2s ease-in-out 2.8s forwards;}
+  .detail-lines {animation:drawLine 1.5s ease-in-out 3.5s forwards;}
+
+  .building-3d {opacity:0; transform:perspective(1000px) rotateX(15deg); animation:emerge3D 2s ease-out 4.5s forwards;}
+  .building-element-3d {position:absolute; background:linear-gradient(135deg,rgba(232,220,192,0.8),rgba(212,196,168,0.6)); border:2px solid rgba(139,125,107,0.4); transform:translateZ(0); transition:all 0.5s ease;}
+  .curved-staircase {bottom:15%; left:25%; width:50%; height:40%; border-radius:50% 50% 20% 20%; transform:rotateX(-10deg) translateZ(10px); animation:buildUp3D 1s ease-out 5s forwards;}
+  .left-colonnade {top:25%; left:5%; width:40%; height:50%; border-radius:15px; transform:rotateY(-5deg) translateZ(20px); animation:buildUp3D 1.2s ease-out 5.2s forwards;}
+  .central-dome-base {top:20%; left:45%; width:25%; height:35%; border-radius:10px; transform:translateZ(30px); animation:buildUp3D 1.4s ease-out 5.4s forwards;}
+  .main-dome {top:10%; left:48%; width:19%; height:25%; background:radial-gradient(ellipse,rgba(245,234,214,0.9),rgba(212,196,168,0.7)); border-radius:50%; transform:translateZ(50px); animation:buildUp3D 1.6s ease-out 5.6s forwards;}
+
+  .content-overlay {display:flex; flex-direction:column; justify-content:center; align-items:center; z-index:20; pointer-events:none;}
+  .hero-content {text-align:center; color:#3a3530; opacity:0; transform:translateY(30px); animation:contentAppear 1.2s ease-out 6.5s forwards; pointer-events:all; background:rgba(248,246,243,0.85); padding:2rem; border-radius:15px; backdrop-filter:blur(10px); box-shadow:0 8px 25px rgba(0,0,0,0.1);}
+  .company-logo {width:80px; height:80px; margin-bottom:1.5rem; opacity:0; transform:scale(0.5) rotateY(180deg); animation:logoAppear 1.5s ease-out 6.8s forwards;}
+  .hero-title {font-size:clamp(1.8rem,4.5vw,3.2rem); font-weight:400; margin-bottom:0.5rem; text-shadow:2px 2px 4px rgba(255,255,255,0.8); letter-spacing:1px; color:#b8860b; text-transform:uppercase;}
+  .company-tagline {font-size:clamp(0.9rem,2vw,1.1rem); font-weight:300; margin-bottom:2rem; opacity:0.7; font-style:italic; color:#8b7d6b;}
+  .hero-subtitle {font-size:clamp(1rem,2.5vw,1.4rem); font-weight:400; margin-bottom:2rem; opacity:0.8;}
+  .cta-button {background:linear-gradient(135deg,#8b7d6b 0%,#6b5d4f 100%); color:white; padding:15px 40px; border:none; border-radius:30px; font-size:1.1rem; cursor:pointer; transition:all 0.3s ease; box-shadow:0 4px 15px rgba(0,0,0,0.2);}
+  .cta-button:hover {transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.3);}
+
+  .sketch-particle {position:absolute; width:3px; height:15px; background:rgba(139,125,107,0.4); transform-origin:bottom; animation:sketchFloat 6s infinite ease-in-out;}
+  .sketch-particle:nth-child(1){top:20%; left:15%; animation-delay:0s; transform:rotate(15deg);}
+  .sketch-particle:nth-child(2){top:60%; left:75%; animation-delay:1.5s; transform:rotate(-20deg);}
+  .sketch-particle:nth-child(3){top:40%; left:85%; animation-delay:3s; transform:rotate(45deg);}
+  .sketch-particle:nth-child(4){top:70%; left:25%; animation-delay:4.5s; transform:rotate(-10deg);}
+
+  @keyframes drawLine{0%{opacity:0;stroke-dashoffset:1000;}20%{opacity:1;}100%{opacity:1;stroke-dashoffset:0;}}
+  @keyframes emerge3D{0%{opacity:0;transform:perspective(1000px) rotateX(45deg) scale(0.8);}100%{opacity:1;transform:perspective(1000px) rotateX(15deg) scale(1);}}
+  @keyframes buildUp3D{0%{opacity:0;transform:scale(0.5) translateY(50px) translateZ(0);}50%{opacity:0.7;transform:scale(0.8) translateY(20px) translateZ(10px);}100%{opacity:1;transform:scale(1) translateY(0) translateZ(20px);}}
+  @keyframes logoAppear{0%{opacity:0;transform:scale(0.5) rotateY(180deg);}50%{opacity:0.7;transform:scale(1.1) rotateY(90deg);}100%{opacity:1;transform:scale(1) rotateY(0deg);}}
+  @keyframes contentAppear{0%{opacity:0;transform:translateY(30px) scale(0.95);}100%{opacity:1;transform:translateY(0) scale(1);}}
+  @keyframes sketchFloat{0%,100%{transform:translateY(0px);opacity:0.3;}25%{transform:translateY(-20px) scale(1.1);opacity:0.6;}50%{transform:translateY(-35px) scale(0.9);opacity:0.4;}75%{transform:translateY(-15px) scale(1.05);opacity:0.5;}}
+
+  @media(max-width:768px){.architectural-sketch{width:95vw;height:85vh;}.hero-content{padding:1.5rem;margin:0 1rem;}}
+</style>
+</head>
+<body>
+  <!-- Header -->
+<header>
+  <div class="logo">
+  <img src="logo.png" alt="OAA Logo" style="height:50px;">
+</div>
+
+  <nav>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="service.html">Services</a></li>
+      <li><a href="business.html">Business</a></li>
+      <li><a href="#contact" onclick="showContactModal()">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+<div class="hero-container">
+  <div class="sketch-background"></div>
+  <div class="sketch-particle"></div><div class="sketch-particle"></div><div class="sketch-particle"></div><div class="sketch-particle"></div>
+
+  <div class="drawing-container">
+    <svg class="architectural-sketch" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+      <path class="sketch-path foundation-lines" d="M100 500 L700 500 L680 480 L120 480 Z"/>
+      <path class="sketch-path foundation-lines" d="M120 480 L680 480 L660 460 L140 460 Z"/>
+      <path class="sketch-path stair-lines" d="M200 450 Q400 350 600 450"/>
+      <path class="sketch-path stair-lines" d="M220 440 Q400 360 580 440"/>
+      <path class="sketch-path stair-lines" d="M240 430 Q400 370 560 430"/>
+      <path class="sketch-path stair-lines" d="M260 420 Q400 380 540 420"/>
+      <path class="sketch-path building-outline" d="M50 200 L320 200 L320 450 L50 450 Z"/>
+      <path class="sketch-path building-outline" d="M50 200 L70 180 L340 180 L320 200"/>
+      <path class="sketch-path building-outline" d="M320 200 L340 180 L340 430 L320 450"/>
+      <line class="sketch-path column-lines" x1="80" y1="220" x2="80" y2="420"/>
+      <line class="sketch-path column-lines" x1="120" y1="220" x2="120" y2="420"/>
+      <line class="sketch-path column-lines" x1="160" y1="220" x2="160" y2="420"/>
+      <line class="sketch-path column-lines" x1="200" y1="220" x2="200" y2="420"/>
+      <line class="sketch-path column-lines" x1="240" y1="220" x2="240" y2="420"/>
+      <line class="sketch-path column-lines" x1="280" y1="220" x2="280" y2="420"/>
+      <path class="sketch-path building-outline" d="M350 250 L550 250 L550 450 L350 450 Z"/>
+      <path class="sketch-path building-outline" d="M350 250 L365 235 L565 235 L550 250"/>
+      <path class="sketch-path building-outline" d="M550 250 L565 235 L565 435 L550 450"/>
+      <ellipse class="sketch-path dome-lines" cx="450" cy="200" rx="60" ry="80"/>
+      <ellipse class="sketch-path dome-lines" cx="450" cy="180" rx="45" ry="60"/>
+      <path class="sketch-path dome-lines" d="M390 200 L510 200"/>
+      <circle class="sketch-path dome-lines" cx="450" cy="130" r="15"/>
+      <path class="sketch-path building-outline" d="M580 280 L750 280 L750 450 L580 450 Z"/>
+      <line class="sketch-path column-lines" x1="600" y1="300" x2="600" y2="420"/>
+      <line class="sketch-path column-lines" x1="640" y1="300" x2="640" y2="420"/>
+      <line class="sketch-path column-lines" x1="680" y1="300" x2="680" y2="420"/>
+      <line class="sketch-path column-lines" x1="720" y1="300" x2="720" y2="420"/>
+      <path class="sketch-path detail-lines" d="M50 220 L320 220"/>
+      <path class="sketch-path detail-lines" d="M350 270 L550 270"/>
+      <path class="sketch-path detail-lines" d="M350 290 L550 290"/>
+      <path class="sketch-path detail-lines" d="M580 300 L750 300"/>
+      <path class="sketch-path detail-lines" d="M0 500 L800 500"/>
+      <path class="sketch-path detail-lines" d="M100 520 L700 520"/>
+      <ellipse class="sketch-path detail-lines" cx="650" cy="440" rx="3" ry="5"/>
+      <line class="sketch-path detail-lines" x1="650" y1="445" x2="650" y2="470"/>
+      <line class="sketch-path detail-lines" x1="645" y1="455" x2="655" y2="455"/>
+      <line class="sketch-path detail-lines" x1="650" y1="470" x2="645" y2="485"/>
+      <line class="sketch-path detail-lines" x1="650" y1="470" x2="655" y2="485"/>
+    </svg>
+  </div>
+
+  <div class="building-3d">
+    <div class="building-element-3d curved-staircase"></div>
+    <div class="building-element-3d left-colonnade"></div>
+    <div class="building-element-3d central-dome-base"></div>
+    <div class="building-element-3d main-dome"></div>
+  </div>
+
+  <div class="content-overlay">
+    <div class="hero-content">
+      <img src="logo.png" alt="OAA Logo" class="company-logo" />
+
+        <defs>
+          <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#f4d03f;stop-opacity:1"/>
+            <stop offset="50%" style="stop-color:#d4af37;stop-opacity:1"/>
+            <stop offset="100%" style="stop-color:#b8860b;stop-opacity:1"/>
+          </linearGradient>
+          <filter id="shadow"><dropshadow dx="2" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.3)"/></filter>
+        </defs>
+        <circle cx="100" cy="100" r="90" fill="none" stroke="url(#goldGradient)" stroke-width="8"/>
+        <path d="M70 60 L70 140 L80 140 L80 70 L90 70 L90 130 L100 130 L100 80 L110 80 L110 130 L120 130 L120 70 L130 70 L130 140 L140 140 L140 60 Z" fill="url(#goldGradient)" filter="url(#shadow)"/>
+        <path d="M65 60 L75 50 L85 60 Z" fill="url(#goldGradient)"/>
+        <path d="M115 60 L125 50 L135 60 Z" fill="url(#goldGradient)"/>
+        <path d="M90 70 L100 55 L110 70 Z" fill="url(#goldGradient)"/>
+        <rect x="65" y="140" width="80" height="10" fill="url(#goldGradient)" rx="2"/>
+      <h1 class="hero-title">Odysey Architects & Associates</h1>
+      <p class="company-tagline">Building Dreams, Creating Legacies</p>
+      <p class="hero-subtitle">Where classical elegance meets modern innovation</p>
+      <button class="cta-button" onclick="window.location.href='/services'">Explore Our Projects</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Universal Contact Modal CSS and JS -->
+    <link rel="stylesheet" href="contact-modal.css">
+    <script src="contact-modal.js"></script>
+    
+</body>
+</html>

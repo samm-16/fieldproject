@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Contact Modal Test - Shri Krishna Leela Enterprises</title>
+    <link rel="stylesheet" href="contact-modal.css">
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #8b4513, #b8860b, #f0e68c);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .test-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 600px;
+        }
+        
+        h1 {
+            color: #6d4c41;
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+        
+        p {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .test-button {
+            background: linear-gradient(135deg, #8b4513, #b8860b, #daa520);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Georgia', serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+        
+        .test-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4);
+        }
+        
+        .features {
+            margin-top: 30px;
+            text-align: left;
+        }
+        
+        .feature {
+            margin: 10px 0;
+            color: #8b4513;
+            font-weight: 600;
+        }
+        
+        .feature::before {
+            content: "✓ ";
+            color: #28a745;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🎉 Universal Contact Modal</h1>
+        <p>Your contact modal is now 100% identical across all pages! Test it out below:</p>
+        
+        <button class="test-button" onclick="showContactModal()">Open Contact Modal</button>
+        
+        <div class="features">
+            <div class="feature">Same design on all pages (Home, About, Service, Business)</div>
+            <div class="feature">Enhanced animations and visual effects</div>
+            <div class="feature">Better mobile responsiveness</div>
+            <div class="feature">Improved form validation and error handling</div>
+            <div class="feature">Smooth animations and transitions</div>
+            <div class="feature">Professional gradient styling</div>
+            <div class="feature">Centralized code management</div>
+            <div class="feature">No more inconsistencies!</div>
+        </div>
+        
+        <p style="margin-top: 30px; font-size: 14px; color: #999;">
+            This modal is loaded from external CSS and JS files, ensuring perfect consistency across your entire website.
+        </p>
+    </div>
+    
+    <script src="contact-modal.js"></script>
+</body>
+</html>

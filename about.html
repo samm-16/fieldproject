@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us - Odysey Architects & Associates</title>
+<style>
+  * {margin:0; padding:0; box-sizing:border-box;}
+  html, body {height:100%; overflow-x:hidden; font-family:'Georgia', serif; background:#f8f6f3;}
+  
+  /* Header Styles */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(139, 125, 107, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 15px 0;
+    z-index: 1000;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+  }
+  
+  header .logo {
+    float: left;
+    margin-left: 30px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #f0e68c;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  header nav {
+    float: right;
+    margin-right: 30px;
+  }
+  
+  header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+  }
+  
+  header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    padding: 8px 15px;
+    border-radius: 20px;
+  }
+  
+  header nav ul li a:hover {
+    background: rgba(240, 230, 140, 0.2);
+    color: #f0e68c;
+    transform: translateY(-2px);
+  }
+  
+  header::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+
+  .hero-container {position:relative; width:100vw; height:100vh; background:linear-gradient(135deg,#f8f6f3 0%,#ede8e0 50%,#e2ddd5 100%);}
+  .sketch-background {position:absolute; top:0; left:0; width:100%; height:100%; background:url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxwYXR0ZXJuIGlkPSJza2V0Y2giIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj4KICAgICAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmOGY2ZjMiLz4KICAgIDwvcGF0dGVybj4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9InVybCgjc2tldGNoKSIvPgo8L3N2Zz4='); opacity:0.1;}
+
+  .drawing-container, .building-3d, .content-overlay {position:absolute; top:0; left:0; width:100%; height:100%;}
+  .drawing-container {display:flex; justify-content:center; align-items:center;}
+  .architectural-sketch {width:90vw; height:90vh; max-width:1200px; max-height:900px;}
+  .sketch-path {fill:none; stroke:#8b7d6b; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:1000; stroke-dashoffset:1000; opacity:0;}
+  .foundation-lines {animation:drawLine 1.5s ease-in-out 0.2s forwards;}
+  .stair-lines {animation:drawLine 2s ease-in-out 0.8s forwards;}
+  .building-outline {animation:drawLine 2.2s ease-in-out 1.5s forwards;}
+  .column-lines {animation:drawLine 1.8s ease-in-out 2.2s forwards;}
+  .dome-lines {animation:drawLine 2s ease-in-out 2.8s forwards;}
+  .detail-lines {animation:drawLine 1.5s ease-in-out 3.5s forwards;}
+
+  .building-3d {opacity:0; transform:perspective(1000px) rotateX(15deg); animation:emerge3D 2s ease-out 4.5s forwards;}
+  .building-element-3d {position:absolute; background:linear-gradient(135deg,rgba(232,220,192,0.8),rgba(212,196,168,0.6)); border:2px solid rgba(139,125,107,0.4); transform:translateZ(0); transition:all 0.5s ease;}
+  .curved-staircase {bottom:15%; left:25%; width:50%; height:40%; border-radius:50% 50% 20% 20%; transform:rotateX(-10deg) translateZ(10px); animation:buildUp3D 1s ease-out 5s forwards;}
+  .left-colonnade {top:25%; left:5%; width:40%; height:50%; border-radius:15px; transform:rotateY(-5deg) translateZ(20px); animation:buildUp3D 1.2s ease-out 5.2s forwards;}
+  .central-dome-base {top:20%; left:45%; width:25%; height:35%; border-radius:10px; transform:translateZ(30px); animation:buildUp3D 1.4s ease-out 5.4s forwards;}
+  .main-dome {top:10%; left:48%; width:19%; height:25%; background:radial-gradient(ellipse,rgba(245,234,214,0.9),rgba(212,196,168,0.7)); border-radius:50%; transform:translateZ(50px); animation:buildUp3D 1.6s ease-out 5.6s forwards;}
+
+  .content-overlay {display:flex; flex-direction:column; justify-content:center; align-items:center; z-index:20; pointer-events:none;}
+  .hero-content {text-align:center; color:#3a3530; opacity:0; transform:translateY(30px); animation:contentAppear 1.2s ease-out 6.5s forwards; pointer-events:all; background:rgba(248,246,243,0.85); padding:2rem; border-radius:15px; backdrop-filter:blur(10px); box-shadow:0 8px 25px rgba(0,0,0,0.1);}
+  .company-logo {width:80px; height:80px; margin-bottom:1.5rem; opacity:0; transform:scale(0.5) rotateY(180deg); animation:logoAppear 1.5s ease-out 6.8s forwards;}
+  .hero-title {font-size:clamp(1.8rem,4.5vw,3.2rem); font-weight:400; margin-bottom:0.5rem; text-shadow:2px 2px 4px rgba(255,255,255,0.8); letter-spacing:1px; color:#b8860b; text-transform:uppercase;}
+  .company-tagline {font-size:clamp(0.9rem,2vw,1.1rem); font-weight:300; margin-bottom:2rem; opacity:0.7; font-style:italic; color:#8b7d6b;}
+  .hero-subtitle {font-size:clamp(1rem,2.5vw,1.4rem); font-weight:400; margin-bottom:2rem; opacity:0.8;}
+  .cta-button {background:linear-gradient(135deg,#8b7d6b 0%,#6b5d4f 100%); color:white; padding:15px 40px; border:none; border-radius:30px; font-size:1.1rem; cursor:pointer; transition:all 0.3s ease; box-shadow:0 4px 15px rgba(0,0,0,0.2);}
+  .cta-button:hover {transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.3);}
+
+  .sketch-particle {position:absolute; width:3px; height:15px; background:rgba(139,125,107,0.4); transform-origin:bottom; animation:sketchFloat 6s infinite ease-in-out;}
+  .sketch-particle:nth-child(1){top:20%; left:15%; animation-delay:0s; transform:rotate(15deg);}
+  .sketch-particle:nth-child(2){top:60%; left:75%; animation-delay:1.5s; transform:rotate(-20deg);}
+  .sketch-particle:nth-child(3){top:40%; left:85%; animation-delay:3s; transform:rotate(45deg);}
+  .sketch-particle:nth-child(4){top:70%; left:25%; animation-delay:4.5s; transform:rotate(-10deg);}
+
+  @keyframes drawLine{0%{opacity:0;stroke-dashoffset:1000;}20%{opacity:1;}100%{opacity:1;stroke-dashoffset:0;}}
+  @keyframes emerge3D{0%{opacity:0;transform:perspective(1000px) rotateX(45deg) scale(0.8);}100%{opacity:1;transform:perspective(1000px) rotateX(15deg) scale(1);}}
+  @keyframes buildUp3D{0%{opacity:0;transform:scale(0.5) translateY(50px) translateZ(0);}50%{opacity:0.7;transform:scale(0.8) translateY(20px) translateZ(10px);}100%{opacity:1;transform:scale(1) translateY(0) translateZ(20px);}}
+  @keyframes logoAppear{0%{opacity:0;transform:scale(0.5) rotateY(180deg);}50%{opacity:0.7;transform:scale(1.1) rotateY(90deg);}100%{opacity:1;transform:scale(1) rotateY(0deg);}}
+  @keyframes contentAppear{0%{opacity:0;transform:translateY(30px) scale(0.95);}100%{opacity:1;transform:translateY(0) scale(1);}}
+  @keyframes sketchFloat{0%,100%{transform:translateY(0px);opacity:0.3;}25%{transform:translateY(-20px) scale(1.1);opacity:0.6;}50%{transform:translateY(-35px) scale(0.9);opacity:0.4;}75%{transform:translateY(-15px) scale(1.05);opacity:0.5;}}
+
+  @media(max-width:768px){.architectural-sketch{width:95vw;height:85vh;}.hero-content{padding:1.5rem;margin:0 1rem;}}
+</style>
+</head>
+<body>
+  <!-- Header -->
+<header>
+  <div class="logo">Odysey Architects & Associates</div>
+  <nav>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="service.html">Services</a></li>
+      <li><a href="business.html">Business</a></li>
+      <li><a href="#contact" onclick="showContactModal()">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+<!-- About Hero Section -->
+<section style="height:100vh;background:linear-gradient(135deg,rgba(60,60,60,.7),rgba(139,69,19,.6));display:flex;align-items:center;justify-content:center;text-align:center;position:relative;margin-top:80px;">
+  <div style="color:#fff;z-index:2;max-width:900px;padding:40px 20px;">
+    <div style="display:inline-block;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);padding:12px 30px;border-radius:50px;margin-bottom:30px;border:1px solid rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;font-size:0.9rem;">About Our Company</div>
+    <h1 style="font-family:'Georgia',serif;font-size:clamp(2.5rem,6vw,4rem);font-weight:700;margin-bottom:1.5rem;color:#f0e68c;">Building Dreams Into Reality</h1>
+ 
+    
+    <div style="display:flex;justify-content:center;gap:30px;margin:40px 0;flex-wrap:wrap;">
+      <div style="background:rgba(255,255,255,.15);backdrop-filter:blur(6px);padding:25px 35px;border-radius:15px;min-width:160px;box-shadow:0 8px 20px rgba(0,0,0,.1);border:1px solid rgba(255,255,255,.2);">
+        <span style="font-size:2.5rem;font-weight:700;color:#f0e68c;display:block;margin-bottom:8px;">7+</span>
+        <span style="color:#fff;font-weight:500;font-size:1rem;opacity:0.9;">Years Experience</span>
+      </div>
+      <div style="background:rgba(255,255,255,.15);backdrop-filter:blur(6px);padding:25px 35px;border-radius:15px;min-width:160px;box-shadow:0 8px 20px rgba(0,0,0,.1);border:1px solid rgba(255,255,255,.2);">
+        <span style="font-size:2.5rem;font-weight:700;color:#f0e68c;display:block;margin-bottom:8px;">30+</span>
+        <span style="color:#fff;font-weight:500;font-size:1rem;opacity:0.9;">Projects Delivered</span>
+      </div>
+      <div style="background:rgba(255,255,255,.15);backdrop-filter:blur(6px);padding:25px 35px;border-radius:15px;min-width:160px;box-shadow:0 8px 20px rgba(0,0,0,.1);border:1px solid rgba(255,255,255,.2);">
+        <span style="font-size:2.5rem;font-weight:700;color:#f0e68c;display:block;margin-bottom:8px;">100%</span>
+        <span style="color:#fff;font-weight:500;font-size:1rem;opacity:0.9;">Client Satisfaction</span>
+      </div>
+    </div>
+
+    <a href="/services" style="display:inline-block;padding:18px 45px;background:linear-gradient(45deg,#8b4513,#b8860b);color:#fff;border-radius:50px;font-weight:600;font-size:1.1rem;text-transform:uppercase;letter-spacing:.5px;text-decoration:none;box-shadow:0 8px 25px rgba(139,69,19,.3);margin-top:20px;">Explore Our Expertise</a>
+  </div>
+</section>
+
+<!-- About Content -->
+<div style="max-width:1200px;margin:0 auto;padding:80px 20px;">
+  <!-- Vision Section -->
+  <section style="margin-bottom:80px;">
+    <h2 style="font-family:'Georgia',serif;font-size:clamp(2rem,4vw,3rem);color:#8b4513;text-align:center;margin-bottom:30px;position:relative;">Our Vision</h2>
+    <div style="background:#fff;padding:40px;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.05);border:1px solid #e0e0e0;text-align:center;">
+      <p style="font-size:1.1rem;line-height:1.8;color:#555;margin-bottom:20px;">At <span style="color:#8b4513;font-weight:600;background:rgba(139,69,19,.1);padding:2px 8px;border-radius:4px;">Odysey Architects & Associates</span>, OAA is actively engaged in providing contextually appropriate solutions within 
+the increasingly changing world. Established in Navi Mumbai on 2012, apart 
+from providing Architectural solutions, OAA  provides service in Project 
+Feasibility and Project Management & Consultancy. </p>
+      <p style="font-size:1.1rem;line-height:1.8;color:#555;"> We also provide service in 
+Landscape and Interior Designing and provide Research and Development prior 
+to any project for betterment of Client. Being a part of service industry, delivery 
+on time is our commitment. Quality over Quantity is our motive.</p>
+    </div>
+  </section>
+
+  <!-- Company Values -->
+  <section style="margin-bottom: 80px; padding: 0 20px;">
+  <h2 style="font-family:'Georgia', serif; font-size: clamp(2rem, 4vw, 3rem); color: #8b4513; text-align: center; margin-bottom: 50px; position: relative;">
+    What Sets Us Apart
+  </h2>
+
+  <div style="max-width: 1000px; margin: 0 auto; background: #fdfaf7; padding: 40px 30px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.05);">
+    <p style="font-size: 1.2rem; line-height: 1.8; color: #4a4032; font-family: 'Georgia', serif; text-align: center; margin-bottom: 30px;">
+      At the heart of our firm is a dynamic, multidisciplinary team of professionals who bring passion, expertise, and a shared vision of excellence in design and execution.
+    </p>
+
+    <ul style="list-style: none; padding: 0; font-size: 1rem; color: #5a4b3b; font-family: 'Georgia', serif; line-height: 1.8;">
+      <li><strong>Ketan Sawant</strong> (B.Arch; PG-REUIM-NICMAR) — <em>Proprietor</em></li>
+      <li><strong>Sachin Yadav</strong> (B.Arch; M.Arch – Urban Design) — <em>Associate</em></li>
+      <li><strong>Vikramsingh Patankar</strong> (MBA – Finance) — <em>Property & Legal Adviser</em></li>
+      <li><strong>Manoj Kumar</strong> (B.E. – Civil; MBA) — <em>Structural Advisor</em></li>
+      <li><strong>Vikas Mahse</strong> (B.E. – Civil; PG-REUIM-NICMAR)</li>
+      <li><strong>Vaibhav Patil</strong> (B.Arch, M.Arch – Construction Management)</li>
+      <li><strong>Hemant Jaiswar</strong> (B.Arch)</li>
+      <li><strong>Sanket Chavan</strong> (B.Arch)</li>
+      <li><strong>Amit Patil</strong> — <em>Senior Liasoner – Palghar</em></li>
+      <li><strong>Dinesh Sawant</strong> — <em>Senior Liasoner – Navi Mumbai</em></li>
+      <li><strong>Nandkumar Madhav</strong> — <em>Graphic Designer</em></li>
+      <li><strong>Pallavi Ner</strong> — <em>HR & Accounts</em></li>
+    </ul>
+  </div>
+</section>
+
+  <!-- Leadership -->
+  <section style="margin-bottom:80px;">
+    <h2 style="font-family:'Georgia',serif;font-size:clamp(2rem,4vw,3rem);color:#8b4513;text-align:center;margin-bottom:30px;position:relative;">Leadership</h2>
+    <div style="background:linear-gradient(135deg,#f8f6f3,#ede8e0);padding:40px;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,.1);border:2px solid rgba(139,69,19,.1);">
+      <h4 style="color:#8b4513;font-size:1.5rem;margin-bottom:15px;font-family:'Georgia',serif;">Ketan Sawant :: Proprietor </h4>
+      <p style="font-size:1.1rem;line-height:1.8;color:#555;margin-bottom:20px;">An experience of above 7 Yrs of  Architectural practice and an unmatched 
+knowledge in Real Estate and Finance and with an highly prestigious Post 
+graduation degree from NICMAR, Ketan Sawant has worked in most of the 
+parts of Maharashtra with multiple Corporation. In his earlier days, he has 
+worked with reputed firms in the industry like Dimensions and Ahuja Builders 
+and Developers and later he has worked as an Partner for Vastukala Architects 
+Pvt. Ltd. </p>
+      <p style="font-size:1.1rem;line-height:1.8;color:#555;"> Finally in year 2012, he started his own organization of Odyssey 
+Architects and Associates.</p>
+    </div>
+  </section>
+</div>
+    
+    <!-- Universal Contact Modal CSS and JS -->
+    <link rel="stylesheet" href="contact-modal.css">
+    <script src="contact-modal.js"></script>
+    
+</body>
+</html>

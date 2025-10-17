@@ -1,14 +1,21 @@
 const express = require('express');
 const router = express.Router();
+const Contact = require('../models/Contact'); // Import the Mongoose model
 
+// POST /api/contact
 router.post('/', async (req, res) => {
   const { name, email, message } = req.body;
+
   try {
-    // You can save this to DB or send email
-    console.log(`Contact from ${name} (${email}): ${message}`);
-    res.status(200).json({ success: true, msg: 'Message received' });
+    // Create and save the contact message
+    const newContact = new Contact({ name, email, message });
+    await newContact.save();
+
+    console.log(`✅ Message saved from ${name} (${email})`);
+    res.status(200).json({ success: true, msg: 'Message received and saved' });
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    console.error('❌ Error saving contact:', err.message);
+    res.status(500).json({ success: false, error: 'Failed to save message' });
   }
 });
 

@@ -1,8 +1,8 @@
 // Inside handleSubmit method
 const formData = {
-  name: document.getElementById('contactName').value,
-  email: document.getElementById('contactEmail').value,
-  message: document.getElementById('contactIdea').value // renamed from 'idea' to match backend
+  name: document.getElementById('contactName').value.trim(),
+  email: document.getElementById('contactEmail').value.trim(),
+  message: document.getElementById('contactIdea').value.trim() // renamed from 'idea' to match backend
 };
 
 try {

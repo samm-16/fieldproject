@@ -6,6 +6,7 @@ dotenv.config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 
 // Initialize app
 const app = express();
@@ -13,7 +14,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-  origin: '*', // You can restrict this to your Netlify domain for security
+  origin: '*', // Replace with your Netlify domain for security
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
@@ -25,12 +26,18 @@ mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true,
 })
 .then(() => console.log('✅ MongoDB connected'))
-.catch((err) => console.error('❌ MongoDB connection error:', err));
+.catch((err) => {
+  console.error('❌ MongoDB connection error:', err.message);
+  process.exit(1); // Stop the server if DB fails
+});
 
 // Routes
+const contactPath = path.join(__dirname, 'routes', 'contact.js');
+const customizePath = path.join(__dirname, 'routes', 'customize.js');
+
 try {
-  const contactRoutes = require('./routes/contact');
-  const customizeRoutes = require('./routes/customize');
+  const contactRoutes = require(contactPath);
+  const customizeRoutes = require(customizePath);
 
   app.use('/api/contact', contactRoutes);
   app.use('/api/customize', customizeRoutes);
@@ -50,5 +57,5 @@ app.use((req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
